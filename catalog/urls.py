@@ -1,4 +1,5 @@
 from django.urls import path
+from django.contrib.auth import views as auth_views
 from . import views
 
 urlpatterns = [
@@ -12,4 +13,9 @@ urlpatterns = [
     path("redactors/", views.redactor_list, name="redactor_list"),
     path("redactor/create/", views.redactor_create, name="redactor_create"),
     path("redactor/<int:pk>/edit/", views.redactor_edit, name="redactor_edit"),
+    path("register/", views.register, name="register"),
+    path("activate/<uidb64>/<token>/", views.activate_account, name="activate_account"),
+    path("login/", auth_views.LoginView.as_view(template_name="login.html"), name="login"),
+    path("logout/", auth_views.LogoutView.as_view(template_name="logout.html"), name="logout"),
+    path("profile/", views.profile, name="profile"),
 ]

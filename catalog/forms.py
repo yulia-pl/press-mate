@@ -1,4 +1,5 @@
 from django import forms
+from django.contrib.auth.forms import UserCreationForm
 from .models import Newspaper, Topic, Redactor
 
 
@@ -28,3 +29,12 @@ class RedactorForm(forms.ModelForm):
         # Поля для редагування
         fields = \
             ["username", "email", "first_name", "last_name", "years_of_experience"]
+
+# Реєстрація
+class RedactorRegistrationForm(UserCreationForm):
+    email = forms.EmailField(required=True)
+
+    class Meta:
+        model = Redactor
+        fields = ["username", "email", "first_name",
+                  "last_name", "password1", "password2"]

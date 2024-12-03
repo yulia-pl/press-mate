@@ -3,14 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ form.instance.pk|default:"Create Redactor" }}</title>
+    <title>{% if redactor %}Edit Redactor{% else %}Create Redactor{% endif %}</title>
 </head>
 <body>
-    <h1>{{ form.instance.pk|default:"Create Redactor" }}</h1>
+    <h1>{% if redactor %}Edit Redactor{% else %}Create a New Redactor{% endif %}</h1>
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit">Save</button>
+        <button type="submit">{% if redactor %}Save Changes{% else %}Create{% endif %}</button>
     </form>
+    <br>
+    <a href="{% url 'redactor_list' %}">Back to Redactors</a>
 </body>
 </html>

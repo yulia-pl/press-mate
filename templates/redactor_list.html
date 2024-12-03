@@ -1,17 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Redactors List</title>
-</head>
-<body>
-    <h1>Redactors</h1>
-    <ul>
-        {% for redactor in redactors %}
-            <li><a href="{% url 'redactor_edit' redactor.pk %}">{{ redactor.username }}</a> - {{ redactor.years_of_experience }} years of experience</li>
-        {% endfor %}
-    </ul>
-    <a href="{% url 'redactor_create' %}">Add new Redactor</a>
-</body>
-</html>
+<a href="{% url 'redactor_create' %}">Create New Redactor</a>
+<ul>
+    {% for redactor in redactors %}
+        <li>
+            {{ redactor.username }} - {{ redactor.email }}
+            <a href="{% url 'redactor_edit' redactor.id %}">Edit</a>
+        </li>
+    {% endfor %}
+</ul>

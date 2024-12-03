@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Press Mate - Home</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <header>
+        <h1>Welcome to Press Mate</h1>
+        <p>Effortlessly track your newspapers and their editors.</p>
+    </header>
+    <nav>
+        <ul>
+            <li><a href="/newspapers/">Newspapers</a></li>
+            <li><a href="/topics/">Topics</a></li>
+            <li><a href="/redactors/">Editors</a></li>
+            {% if user.is_authenticated %}
+                <li><a href="/profile/">Profile</a></li>
+                <li><a href="/logout/">Logout</a></li>
+            {% else %}
+                <li><a href="/login/">Login</a></li>
+                <li><a href="/register/">Register</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+    <footer>
+        <p>&copy; 2024 Press Mate. All rights reserved.</p>
+    </footer>
+</body>
+</html>
