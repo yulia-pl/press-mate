@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ newspaper.title }}</title>
+</head>
+<body>
+    <h1>{{ newspaper.title }}</h1>
+    <p>{{ newspaper.content }}</p>
+    <p><strong>Published on:</strong> {{ newspaper.published_date }}</p>
+    <p><strong>Topics:</strong> {% for topic in newspaper.topics.all %}{{ topic.name }}{% endfor %}</p>
+    <p><strong>Redactors:</strong> {% for redactor in newspaper.redactors.all %}{{ redactor.username }}{% endfor %}</p>
+</body>
+</html>
