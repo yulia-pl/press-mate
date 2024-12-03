@@ -8,6 +8,11 @@ class NewspaperForm(forms.ModelForm):
         model = Newspaper
         fields = ["title", "content", "published_date", "topics", "redactors"]
 
+    redactors = forms.ModelMultipleChoiceField(
+        queryset=Redactor.objects.all(),  # Додаємо всіх редакторів
+        widget=forms.CheckboxSelectMultiple  # Вибір кількох редакторів
+    )
+
 
 # Форма для створення/редагування теми
 class TopicForm(forms.ModelForm):
