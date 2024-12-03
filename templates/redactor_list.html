@@ -9,8 +9,9 @@
     <h1>Redactors</h1>
     <ul>
         {% for redactor in redactors %}
-            <li>{{ redactor.username }} - {{ redactor.years_of_experience }} years of experience</li>
+            <li><a href="{% url 'redactor_edit' redactor.pk %}">{{ redactor.username }}</a> - {{ redactor.years_of_experience }} years of experience</li>
         {% endfor %}
     </ul>
+    <a href="{% url 'redactor_create' %}">Add new Redactor</a>
 </body>
 </html>

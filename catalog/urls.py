@@ -10,4 +10,6 @@ urlpatterns = [
     path("topic/create/", views.topic_create, name="topic_create"),
     path("topic/<int:pk>/edit/", views.topic_edit, name="topic_edit"),
     path("redactors/", views.redactor_list, name="redactor_list"),
+    path("redactor/create/", views.redactor_create, name="redactor_create"),
+    path("redactor/<int:pk>/edit/", views.redactor_edit, name="redactor_edit"),
 ]

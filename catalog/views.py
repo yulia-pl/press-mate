@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Newspaper, Topic, Redactor
-from .forms import NewspaperForm, TopicForm
+from .forms import NewspaperForm, TopicForm, RedactorForm
 
 
 # відображення списку газет
@@ -75,3 +75,28 @@ def topic_edit(request, pk):
     else:
         form = TopicForm(instance=topic)
     return render(request, "topic_form.html", {"form": form})
+
+
+# для створення нового редактора
+def redactor_create(request):
+    if request.method == "POST":
+        form = RedactorForm(request.POST)
+        if form.is_valid():
+            form.save()  # Зберігаємо нового редактора
+            return redirect("redactor_list")  # Перенаправляємо на список редакторів
+    else:
+        form = RedactorForm()
+    return render(request, "redactor_form.html", {"form": form})
+
+
+# для редагування редактора
+def redactor_edit(request, pk):
+    redactor = get_object_or_404(Redactor, pk=pk)
+    if request.method == "POST":
+        form = RedactorForm(request.POST, instance=redactor)
+        if form.is_valid():
+            form.save()  # Оновлюємо редактора
+            return redirect("redactor_list")  # Перенаправляємо на список редакторів
+    else:
+        form = RedactorForm(instance=redactor)
+    return render(request, "redactor_form.html", {"form": form})
