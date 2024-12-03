@@ -1,5 +1,5 @@
+from django.contrib.auth.models import AbstractUser, Group, Permission
 from django.db import models
-from django.contrib.auth.models import AbstractUser
 
 
 # Модель для тем газети
@@ -13,6 +13,17 @@ class Topic(models.Model):
 # Модель для користувачів (редакторів)
 class Redactor(AbstractUser):
     years_of_experience = models.PositiveIntegerField(default=0)  # Досвід у роках
+
+    groups = models.ManyToManyField(
+        Group,
+        related_name="redactor_set",
+        blank=True
+    )
+    user_permissions = models.ManyToManyField(
+        Permission,
+        related_name="redactor_set",
+        blank=True
+    )
 
     def __str__(self):
         return f"{self.username} ({self.years_of_experience} років досвіду)"
