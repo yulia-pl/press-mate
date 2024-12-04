@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ newspaper.title }}</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <style>
+        body {
+            display: flex;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+        }
+        main {
+            margin-left: 270px;
+            padding: 20px;
+            width: 100%;
+        }
+        .container {
+            padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .btn {
+            display: inline-block;
+            padding: 10px 15px;
+            text-decoration: none;
+            color: white;
+            background-color: #007bff;
+            border-radius: 5px;
+        }
+        .btn-secondary {
+            background-color: #6c757d;
+        }
+    </style>
+</head>
+<body>
+    {% include 'includes/sidebar.html' %}
+    <main>
+        <div class="container">
+            <h1>{{ newspaper.title }}</h1>
+            <p>{{ newspaper.content }}</p>
+            <p><strong>Published on:</strong> {{ newspaper.published_date }}</p>
+            <div>
+                <strong>Topics:</strong>
+                <ul>
+                    {% for topic in newspaper.topics.all %}
+                        <li>{{ topic.name }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div>
+                <strong>Editors:</strong>
+                <ul>
+                    {% for redactor in newspaper.redactors.all %}
+                        <li>{{ redactor.username }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <a href="/newspapers/" class="btn btn-secondary">Back to Newspapers</a>
+        </div>
+    </main>
+</body>
+</html>

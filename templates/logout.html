@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logout</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <div class="container">
+        <div class="message-box">
+            <h1>You have been logged out</h1>
+            <p>Thank you for using Press Mate. We hope to see you again soon!</p>
+            <a href="/login/" class="btn btn-primary">Login again</a>
+            <a href="/" class="btn btn-secondary">Return to Home</a>
+        </div>
+    </div>
+</body>
+</html>

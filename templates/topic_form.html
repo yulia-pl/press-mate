@@ -1,0 +1,45 @@
+{% load crispy_forms_filters %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ form.instance.pk|default:"Create Topic" }}</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <header>
+        <h1>{{ form.instance.pk|default:"Create Topic" }}</h1>
+    </header>
+    <main class="content-container">
+        <form method="post" class="form">
+            {% csrf_token %}
+            {{ form|crispy }}
+            <button type="submit" class="btn">Save</button>
+        </form>
+
+        {% if form.instance.pk %}
+        <div class="related-newspapers">
+            <h2>Newspapers for this Topic</h2>
+            {% if form.instance.newspaper_set.all %}
+                <ul>
+                    {% for newspaper in form.instance.newspaper_set.all %}
+                        <li>
+                            <a href="{% url 'newspaper_detail' newspaper.pk %}" class="btn">
+                                {{ newspaper.title }}
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>No newspapers associated with this topic.</p>
+            {% endif %}
+        </div>
+        {% endif %}
+    </main>
+    <footer>
+        <p>&copy; 2024 Your Website. All Rights Reserved.</p>
+    </footer>
+</body>
+</html>

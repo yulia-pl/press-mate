@@ -1,0 +1,21 @@
+{% load static %}
+<div class="newspaper-list">
+    {% for newspaper in newspapers %}
+        <div class="newspaper-item">
+            <a href="{% url 'newspaper_detail' newspaper.pk %}">
+                <img 
+                    src="{% if newspaper.image %}{{ newspaper.image.url }}{% else %}{% static 'images/default_news.png' %}" 
+                    alt="{{ newspaper.title }}" 
+                    class="newspaper-image"
+                />
+            </a>
+            <div class="newspaper-content">
+                <h3>{{ newspaper.title }}</h3>
+                <p>{{ newspaper.content|truncatewords:20 }}</p>
+                <a href="{% url 'newspaper_detail' newspaper.pk %}" class="btn btn-primary">Read More</a>
+            </div>
+        </div>
+    {% empty %}
+        <p>No newspapers found.</p>
+    {% endfor %}
+</div>
