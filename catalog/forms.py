@@ -30,6 +30,7 @@ class RedactorForm(forms.ModelForm):
         fields = \
             ["username", "email", "first_name", "last_name", "years_of_experience"]
 
+
 # Реєстрація
 class RedactorRegistrationForm(UserCreationForm):
     email = forms.EmailField(required=True)

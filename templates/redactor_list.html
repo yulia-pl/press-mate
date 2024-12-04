@@ -1,9 +1,44 @@
-<a href="{% url 'redactor_create' %}">Create New Redactor</a>
-<ul>
-    {% for redactor in redactors %}
-        <li>
-            {{ redactor.username }} - {{ redactor.email }}
-            <a href="{% url 'redactor_edit' redactor.id %}">Edit</a>
-        </li>
-    {% endfor %}
-</ul>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editors List</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    {% include 'includes/sidebar.html' %}
+    
+    <main>
+        <div class="container">
+            <header>
+                <h1>Editors</h1>
+            </header>
+            <div class="action-bar">
+                <a href="{% url 'redactor_create' %}" class="btn btn-primary">Create New Editor</a>
+            </div>
+            <section class="redactor-list">
+                {% if redactors %}
+                    <ul>
+                        {% for redactor in redactors %}
+                            <li class="redactor-item">
+                                <span class="redactor-details">
+                                    <strong>{{ redactor.username }}</strong> - {{ redactor.email }}
+                                </span>
+                                <a href="{% url 'redactor_edit' redactor.id %}" 
+                                   class="btn btn-secondary">Edit</a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <p>No editors available. <a href="{% url 'redactor_create' %}">Create one</a>.</p>
+                {% endif %}
+            </section>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2024 Your Website. All Rights Reserved.</p>
+    </footer>
+</body>
+</html>

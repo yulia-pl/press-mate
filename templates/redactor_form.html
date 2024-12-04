@@ -1,18 +1,98 @@
+{% load crispy_forms_filters %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    {% load static crispy_forms_tags %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% if redactor %}Edit Redactor{% else %}Create Redactor{% endif %}</title>
+    <title>{% if redactor %}Edit Editor{% else %}Create Editor{% endif %}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+
+        header {
+            text-align: center;
+            padding: 20px;
+            background-color: #007bff;
+            color: white;
+        }
+
+        main {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .form-container {
+            max-width: 600px;
+            width: 100%;
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 8px 12px;
+            margin: 10px 5px;
+            font-size: 0.9rem;
+            text-decoration: none;
+            color: white;
+            background-color: #007bff;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        .btn-secondary {
+            background-color: #6c757d;
+        }
+
+        .btn:hover {
+            opacity: 0.9;
+        }
+
+        .btn-create {
+            float: right;
+            padding: 6px 10px;
+            font-size: 0.8rem;
+            background-color: #007bff;
+        }
+
+        footer {
+            text-align: center;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+        }
+    </style>
 </head>
 <body>
-    <h1>{% if redactor %}Edit Redactor{% else %}Create a New Redactor{% endif %}</h1>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">{% if redactor %}Save Changes{% else %}Create{% endif %}</button>
-    </form>
-    <br>
-    <a href="{% url 'redactor_list' %}">Back to Redactors</a>
+    <header>
+        <h1>{% if redactor %}Edit Editor{% else %}Create a New Editor{% endif %}</h1>
+    </header>
+    <main>
+        <section class="form-container">
+            <form method="post">
+                {% csrf_token %}
+                {{ form|crispy }}
+                <button type="submit" class="btn btn-primary">{% if redactor %}Save Changes
+                {% else %}Create{% endif %}</button>
+            </form>
+            <br>
+            <a href="{% url 'redactor_list' %}" class="btn btn-secondary btn-create">
+              Back to Editors</a>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2024 Your Website. All Rights Reserved.</p>
+    </footer>
 </body>
 </html>

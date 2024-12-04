@@ -1,12 +1,18 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Account Activated</title>
 </head>
 <body>
-    <h1>Your account has been activated successfully!</h1>
-    <a href="/">Go to homepage</a>
+    {% include 'includes/sidebar.html' %}
+    <div class="container">
+        <h1>Your account has been activated successfully!</h1>
+        <p>Welcome to our platform. You can now explore all features.</p>
+        <a href="/">Go to Homepage</a>
+    </div>
 </body>
 </html>

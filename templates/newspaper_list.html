@@ -1,15 +1,38 @@
-{% load static %}
-<div class="newspaper-list">
-    {% for newspaper in newspapers %}
-        <div class="newspaper-item">
-            <img 
-                src="{% if newspaper.image %}{{ newspaper.image.url }}{% else %}{% static 'images/default_news.png' %}{% endif %}" 
-                alt="{{ newspaper.title }}" 
-                class="newspaper-image"
-            />
-            <h3>{{ newspaper.title }}</h3>
-            <p>{{ newspaper.content|truncatewords:20 }}</p>
-            <a href="{% url 'newspaper_detail' newspaper.pk %}" class="btn btn-primary">Read More</a>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Newspapers List</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    {% include 'includes/sidebar.html' %}
+    <main>
+        <div class="container">
+            <h1>Newspapers</h1>
+            <div class="newspaper-list">
+                {% for newspaper in newspapers %}
+                    <div class="newspaper-item">
+                        <a href="{% url 'newspaper_detail' newspaper.pk %}">
+                            <img 
+                                src="{% if newspaper.image %}{{ newspaper.image.url }}
+{% else %}{% static 'images/default_news.png' %}{% endif %}" 
+                                alt="{{ newspaper.title }}" 
+                                class="newspaper-image"
+                            />
+                        </a>
+                        <div class="newspaper-content">
+                            <h3>{{ newspaper.title }}</h3>
+                            <p>{{ newspaper.content|truncatewords:20 }}</p>
+                            <a href="{% url 'newspaper_detail' newspaper.pk %}" class="btn btn-primary">
+                              Read More</a>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
         </div>
-    {% endfor %}
-</div>
+    </main>
+</body>
+</html>

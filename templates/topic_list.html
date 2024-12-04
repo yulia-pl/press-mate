@@ -1,16 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    {% load static %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Topics List</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
 <body>
-    <h1>Topics</h1>
-    <ul>
-        {% for topic in topics %}
-            <li>{{ topic.name }}</li>
-        {% endfor %}
-    </ul>
+    {% include 'includes/sidebar.html' %}
+    <main>
+        <header>
+            <h1>Topics</h1>
+        </header>
+        <ul class="topics-list">
+            {% for topic in topics %}
+                <li class="topic-item">
+                    <span>{{ topic.name }}</span>
+                    <a href="{% url 'newspaper_list' %}?topic={{ topic.id }}" 
+                       class="btn">View Newspapers</a>
+                </li>
+            {% endfor %}
+        </ul>
+    </main>
 </body>
 </html>

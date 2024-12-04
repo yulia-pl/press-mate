@@ -1,6 +1,8 @@
 from pathlib import Path
 import os
 
+from django.conf.urls.static import static
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = "django-insecure-(i1xtxi-moh_6bas8fh59+c!343%ny(zqm6rn=7s!^8!t&td!1"
@@ -20,6 +22,9 @@ INSTALLED_APPS = [
     "crispy_forms",
     "crispy_bootstrap4",
 ]
+
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap4"
+CRISPY_TEMPLATE_PACK = "bootstrap4"
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -85,9 +90,11 @@ USE_I18N = True
 
 USE_TZ = True
 
-STATIC_URL = "static/"
+STATIC_URL = "/static/"
 
-STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
+STATICFILES_DIRS = [
+    BASE_DIR / "static",
+]
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
@@ -99,10 +106,9 @@ EMAIL_USE_SSL = False
 EMAIL_HOST_USER = "your_email@gmail.com"
 EMAIL_HOST_PASSWORD = "your_password"
 
-
-
 LOGIN_REDIRECT_URL = "/"
 LOGOUT_REDIRECT_URL = "/"
 
 LOGIN_URL = "/login/"
 
+STATIC_ROOT = BASE_DIR / "staticfiles"

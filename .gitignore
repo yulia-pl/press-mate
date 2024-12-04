@@ -1,3 +1,13 @@
-.idea
-venv
-__pycache__
+venv/
+.idea/
+.vscode/
+__pycache__/
+*.log
+/static/admin/css/
+/static/admin/js/vendor/
+/static/admin/fonts/
+/static/admin/img/
+/static/admin/js/vendor/select2/
+/static/admin/js/vendor/xregexp/
+/images/
+static/admin/fonts/*.woff

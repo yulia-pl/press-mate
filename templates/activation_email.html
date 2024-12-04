@@ -1,5 +1,24 @@
-Hi {{ user.username }},
-
-Please click the link below to activate your account:
-
-http://{{ domain }}{% url 'activate_account' uidb64=uid token=token %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Activate Your Account</title>
+</head>
+<body>
+    {% include 'includes/sidebar.html' %}
+    <div class="email-container">
+        <h1>Welcome, {{ user.username }}!</h1>
+        <p>We're excited to have you join our platform. Please activate your account by clicking the link below:</p>
+        <p>
+            <a href="http://{{ domain }}{% url 'activate_account' uidb64=uid token=token %}">
+                Activate Your Account
+            </a>
+        </p>
+        <p>If you didn't create an account, you can safely ignore this email.</p>
+        <p>Thank you,<br>The Team</p>
+    </div>
+</body>
+</html>

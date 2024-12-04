@@ -4,28 +4,30 @@
     {% load static %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profile</title>
+    <title>{{ form.instance.pk|default:"Create Newspaper" }}</title>
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
 <body>
-    <header>
-        <h1>Welcome, {{ request.user.username }}</h1>
-    </header>
+    {% include 'includes/sidebar.html' %}
+
     <main>
-        <div class="profile-details">
-            <p><strong>Email:</strong> {{ request.user.email }}</p>
-            <p><strong>First Name:</strong> {{ request.user.first_name }}</p>
-            <p><strong>Last Name:</strong> {{ request.user.last_name }}</p>
-        </div>
-        <div class="profile-actions">
-            {% if user.is_authenticated and user.is_staff %}
-                <a href="{% url 'admin:index' %}" class="btn btn-secondary">Admin Panel</a>
-            {% endif %}
-            <a href="{% url 'logout' %}" class="btn">Logout</a>
-        </div>
+        <section class="profile-container">
+            <div class="profile-details">
+                <h2>Your Profile Details</h2>
+                <p><strong>Email:</strong> {{ request.user.email }}</p>
+                <p><strong>First Name:</strong> {{ request.user.first_name }}</p>
+                <p><strong>Last Name:</strong> {{ request.user.last_name }}</p>
+            </div>
+
+            <!-- Дії профілю -->
+            <div class="profile-actions">
+                {% if user.is_authenticated and user.is_staff %}
+                    <a href="{% url 'admin:index' %}" class="btn btn-secondary">Admin Panel</a>
+                {% endif %}
+                <a href="{% url 'logout' %}" class="btn btn-danger">Logout</a>
+            </div>
+        </section>
     </main>
-    <footer>
-        <p>&copy; 2024 Your Website. All Rights Reserved.</p>
-    </footer>
+
 </body>
 </html>

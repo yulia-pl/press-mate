@@ -28,11 +28,13 @@ def newspaper_list(request):
 
     # Перевірка, чи запит є AJAX
     if request.headers.get("x-requested-with") == "XMLHttpRequest":
-        html = render_to_string("partials/newspaper_list_partial.html", {"newspapers": newspapers})
+        html = render_to_string("includes/newspaper_list_partial.html",
+                                {"newspapers": newspapers})
         return JsonResponse({"html": html})
 
     topics = Topic.objects.all()
-    return render(request, "newspaper_list.html", {"newspapers": newspapers, "topics": topics})
+    return render(request, "newspaper_list.html",
+                  {"newspapers": newspapers, "topics": topics})
 
 
 # Відображення деталей газети (загальнодоступне)
@@ -52,19 +54,6 @@ def topic_list(request):
 def redactor_list(request):
     redactors = Redactor.objects.all()
     return render(request, "redactor_list.html", {"redactors": redactors})
-
-
-# Створення нової газети (лише для авторизованих користувачів)
-@login_required
-def newspaper_create(request):
-    if request.method == "POST":
-        form = NewspaperForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect("newspaper_list")
-    else:
-        form = NewspaperForm()
-    return render(request, "newspaper_form.html", {"form": form})
 
 
 # Редагування газети (лише для авторизованих користувачів)
@@ -128,7 +117,9 @@ def register(request):
             })
             send_mail(subject, message, "noreply@yourdomain.com", [user.email])
 
-            messages.success(request, "Registration successful. If you are an admin, you can access the admin panel after activation.")
+            messages.success(request, "Registration successful. "
+                                      "If you are an admin, you can access "
+                                      "the admin panel after activation.")
             return render(request, "registration_complete.html")
     else:
         form = RedactorRegistrationForm()
@@ -182,4 +173,18 @@ def redactor_edit(request, pk):
             return redirect("redactor_list")
     else:
         form = RedactorForm(instance=redactor)
-    return render(request, "redactor_form.html", {"form": form, "redactor": redactor})
+    return render(request, "redactor_form.html",
+                  {"form": form, "redactor": redactor})
+
+
+def latest_news(request):
+    latest_newspapers = Newspaper.objects.order_by("-published_date")[:5]
+    data = [
+        {
+            "title": newspaper.title,
+            "id": newspaper.id,
+            "published_date": newspaper.published_date.strftime("%Y-%m-%d")
+        }
+        for newspaper in latest_newspapers
+    ]
+    return JsonResponse(data, safe=False)

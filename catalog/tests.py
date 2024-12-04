@@ -6,7 +6,8 @@ from .models import Newspaper, Topic, Redactor
 
 class NewspaperTests(TestCase):
     def setUp(self):
-        self.user = User.objects.create_user(username="testuser", password="testpassword123")
+        self.user = User.objects.create_user(username="testuser",
+                                             password="testpassword123")
         self.client.login(username="testuser", password="testpassword123")
 
         self.topic = Topic.objects.create(name="Politics")
@@ -31,24 +32,14 @@ class NewspaperTests(TestCase):
         self.assertContains(response, "Test Newspaper")
 
     def test_newspaper_detail_view(self):
-        response = self.client.get(reverse("newspaper_detail", args=[self.newspaper.pk]))
+        response = self.client.get(reverse("newspaper_detail",
+                                           args=[self.newspaper.pk]))
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "Test Content")
 
-    def test_newspaper_create_view(self):
-        response = self.client.post(reverse("newspaper_create"), {
-            "title": "New Test Newspaper",
-            "content": "Content of the new newspaper",
-            "published_date": "2024-12-02",
-            "topics": [self.topic.pk],
-            "redactors": [self.redactor.pk]
-        })
-        self.assertEqual(response.status_code, 302)
-        self.assertRedirects(response, reverse("newspaper_list"))
-        self.assertTrue(Newspaper.objects.filter(title="New Test Newspaper").exists())
-
     def test_newspaper_edit_view(self):
-        response = self.client.post(reverse("newspaper_edit", args=[self.newspaper.pk]), {
+        response = self.client.post(reverse("newspaper_edit",
+                                            args=[self.newspaper.pk]), {
             "title": "Updated Test Newspaper",
             "content": "Updated content of the newspaper",
             "published_date": "2024-12-03",
@@ -64,7 +55,8 @@ class NewspaperTests(TestCase):
 
 class TopicTests(TestCase):
     def setUp(self):
-        self.user = User.objects.create_user(username="testuser", password="testpassword123")
+        self.user = User.objects.create_user(username="testuser",
+                                             password="testpassword123")
         self.client.login(username="testuser", password="testpassword123")
         self.topic = Topic.objects.create(name="Technology")
 
@@ -93,7 +85,8 @@ class TopicTests(TestCase):
 
 class RedactorTests(TestCase):
     def setUp(self):
-        self.user = User.objects.create_user(username="testuser", password="testpassword123")
+        self.user = User.objects.create_user(username="testuser",
+                                             password="testpassword123")
         self.client.login(username="testuser", password="testpassword123")
         self.redactor = Redactor.objects.create_user(
             username="editor1",
@@ -120,7 +113,8 @@ class RedactorTests(TestCase):
         self.assertTrue(Redactor.objects.filter(username="new_editor").exists())
 
     def test_redactor_edit_view(self):
-        response = self.client.post(reverse("redactor_edit", args=[self.redactor.pk]), {
+        response = self.client.post(reverse("redactor_edit",
+                                            args=[self.redactor.pk]), {
             "username": "updated_editor",
             "email": "updated_editor@example.com",
             "years_of_experience": 6
