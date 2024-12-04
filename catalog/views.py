@@ -9,6 +9,7 @@ from django.contrib.auth.tokens import default_token_generator
 from django.template.loader import render_to_string
 from django.http import JsonResponse
 from .models import Newspaper, Topic, Redactor
+from django.contrib import messages
 from .forms import NewspaperForm, TopicForm, RedactorForm, RedactorRegistrationForm
 
 
@@ -127,6 +128,7 @@ def register(request):
             })
             send_mail(subject, message, "noreply@yourdomain.com", [user.email])
 
+            messages.success(request, "Registration successful. If you are an admin, you can access the admin panel after activation.")
             return render(request, "registration_complete.html")
     else:
         form = RedactorRegistrationForm()
