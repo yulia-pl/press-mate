@@ -6,6 +6,8 @@ from django.contrib.auth import login
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.encoding import force_bytes, force_str
 from django.contrib.auth.tokens import default_token_generator
+from django.template.loader import render_to_string
+from django.http import JsonResponse
 from .models import Newspaper, Topic, Redactor
 from .forms import NewspaperForm, TopicForm, RedactorForm, RedactorRegistrationForm
 
@@ -17,8 +19,19 @@ def home(request):
 
 # Відображення списку газет (загальнодоступне)
 def newspaper_list(request):
-    newspapers = Newspaper.objects.all()
-    return render(request, "newspaper_list.html", {"newspapers": newspapers})
+    topic_id = request.GET.get("topic")
+    if topic_id:
+        newspapers = Newspaper.objects.filter(topics__id=topic_id)
+    else:
+        newspapers = Newspaper.objects.all()
+
+    # Перевірка, чи запит є AJAX
+    if request.headers.get("x-requested-with") == "XMLHttpRequest":
+        html = render_to_string("partials/newspaper_list_partial.html", {"newspapers": newspapers})
+        return JsonResponse({"html": html})
+
+    topics = Topic.objects.all()
+    return render(request, "newspaper_list.html", {"newspapers": newspapers, "topics": topics})
 
 
 # Відображення деталей газети (загальнодоступне)

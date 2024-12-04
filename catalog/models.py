@@ -33,11 +33,7 @@ class Redactor(AbstractUser):
 class Newspaper(models.Model):
     title = models.CharField(max_length=255)
     content = models.TextField()
-    published_date = models.DateField()  # Дата публікації
-    topics = models.ManyToManyField(Topic,
-                                    related_name="newspapers")  # Теми газети
-    redactors = models.ManyToManyField(Redactor,
-                                       related_name="newspapers")  # Редактори газети
-
-    def __str__(self):
-        return self.title
+    published_date = models.DateField()
+    topics = models.ManyToManyField("Topic", related_name="newspapers")
+    redactors = models.ManyToManyField("Redactor", related_name="newspapers")
+    image = models.ImageField(upload_to="newspapers/", blank=True, null=True)
